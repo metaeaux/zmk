@@ -171,6 +171,8 @@ static int on_sticky_key_binding_released(struct zmk_behavior_binding *binding,
     int32_t ms_left = sticky_key->release_at - k_uptime_get();
     if (ms_left > 0) {
         k_work_schedule(&sticky_key->release_timer, K_MSEC(ms_left));
+    } else {
+        release_sticky_key_behavior(sticky_key, sticky_key->release_at);
     }
     return ZMK_BEHAVIOR_OPAQUE;
 }
